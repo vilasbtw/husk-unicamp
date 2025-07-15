@@ -17,10 +17,10 @@ func NewNetworkScreen(w fyne.Window) *NetworkScreen {
 
 func (s *NetworkScreen) Show() {
     btnEven := widget.NewButton("Rede Par", func() {
-        // NewEvenScreen(s.Window).Show()
+        NewEvenScreen(s.Window).Show()
     })
     btnOdd := widget.NewButton("Rede Ímpar", func() {
-        // NewOddScreen(s.Window).Show()
+        NewOddScreen(s.Window).Show()
     })
 
     center := c.BuildButtonGroup(
@@ -35,7 +35,7 @@ func (s *NetworkScreen) Show() {
 
     c.SetScreenContent(
         s.Window,
-        "Estrutura de rede",
+        "Estrutura de Rede",
         center,
         footer,
     )
