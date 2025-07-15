@@ -2,30 +2,35 @@ package gui
 
 import (
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+
+	c "github.com/vilasbtw/husk-unicamp/internal/gui/components"
 )
 
-func ShowHome(w fyne.Window) {
-	btnNetwork := widget.NewButton("Configurar Rede", func() {
-		ShowNetwork(w)
-	})
+type HomeScreen struct {
+	Window fyne.Window
+}
 
-	btnSoftwares := widget.NewButton("Baixar Softwares", func() {
-		// TO-DO
-	})
+func NewHomeScreen(w fyne.Window) *HomeScreen {
+	return &HomeScreen{Window: w}
+}
 
-	btnUpdates := widget.NewButton("Verificar Atualizações", func() {
-		// TO-DO
-	})
-
-	buttonsContainer := container.NewVBox(
-		btnNetwork,
-		btnSoftwares,
-		btnUpdates,
+func (s *HomeScreen) Show() {
+	c.SetScreenContent(
+		s.Window,
+		"Bem-vindo ao Husk!",
+		newContentButtons(s),
+		nil,
 	)
+}
 
-	content := container.NewCenter(buttonsContainer)
-
-	w.SetContent(content)
+func newContentButtons(s *HomeScreen) fyne.CanvasObject {
+	return c.BuildButtonGroup(
+		widget.NewButton("Instalação", func() {
+			NewInstallationScreen(s.Window).Show()
+		}),
+		widget.NewButton("Pós-instalação", func() {
+			// NewPostInstallationScreen(s.Window).Show()
+		}),
+	)
 }

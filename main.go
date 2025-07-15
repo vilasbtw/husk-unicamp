@@ -3,17 +3,20 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"github.com/vilasbtw/husk-unicamp/internal/gui"
+    "github.com/vilasbtw/husk-unicamp/internal/gui"
 )
 
 func main() {
-	a := app.New()
-	w := a.NewWindow("Husk")
+	myApp := app.New()
 
+	
+	w := myApp.NewWindow("Husk")
+
+	home := gui.NewHomeScreen(w)
+	
 	w.CenterOnScreen()
-	w.Resize(fyne.NewSize(600, 500))
+	w.Resize(fyne.NewSize(450, 400))
 
-	gui.ShowHome(w)
-
+	home.Show()
 	w.ShowAndRun()
 }
