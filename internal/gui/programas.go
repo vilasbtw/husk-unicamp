@@ -31,10 +31,10 @@ func (s *DownloadScreen) Show() {
 			s.runInstallerScript()
 		}),
 		widget.NewButton("Netuno", func() {
-			// NewNetunoLoginScreen(s.Window).Show()
+			NewNetunoLoginScreen(s.Window).Show()
 		}),
 		widget.NewButton("Kratos", func() {
-			// NewKratosScreen(s.Window).Show()
+			NewKratosScreen(s.Window).Show()
 		}),
 	)
 

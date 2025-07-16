@@ -29,7 +29,7 @@ foreach ($nome in $programas.Keys) {
     }
 
     if (-Not (Test-Path $caminho)) {
-        Write-Warning "${nome} não foi baixado corretamente. Arquivo não encontrado."
+        Write-Warning "${nome} não foi baixado corretamente. arquivo não encontrado."
         continue
     }
 
