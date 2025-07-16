@@ -1,4 +1,3 @@
-// internal/gui/components/network.go
 package components
 
 import (
@@ -13,7 +12,7 @@ func ShowNetworkConfig(
     title, prefix string,
     hosts []string,
     selected *string,
-    // onOK func(string), TODO
+    onOK func(string),
     onBack, onHome func(),
 ) {
     ipEntry := widget.NewEntry()
@@ -31,7 +30,7 @@ func ShowNetworkConfig(
     }
 
     btnOK := widget.NewButton("OK", func() {
-        // onOK(*selected) TODO
+        onOK(*selected)
     })
     btnOK.Importance = widget.HighImportance
 
@@ -44,6 +43,5 @@ func ShowNetworkConfig(
     )
 
     footer := BuildFooter(onBack, onHome)
-
     SetScreenContent(w, title, center, footer)
 }
