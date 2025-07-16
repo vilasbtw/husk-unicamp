@@ -21,11 +21,20 @@ func (s *InstallationScreen) Show() {
             NewNetworkScreen(s.Window).Show()
         }),
         widget.NewButton("Instalar programas", func() {
-            // NewDownloadScreen(s.Window).Show()
+            NewDownloadScreen(s.Window).Show()
         }),
-        widget.NewButton("Configurar TeamViewer", func() {
-            // NewTeamViewerScreen(s.Window).Show()
-        }),
+
+        /*
+        /   TODO: 
+        /   Implementar configuração do TeamViewer utilizando o arquivo de importação de configuração .tvopt
+        /
+        /    widget.NewButton("Configurar TeamViewer", func() {
+        /        // NewTeamViewerScreen(s.Window).Show()
+        /    }),
+        /
+        /
+        */
+
     )
 
     footer := c.BuildFooter(
