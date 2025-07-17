@@ -5,11 +5,11 @@ import (
 	"os/exec"
 	"path/filepath"
 
+	"github.com/vilasbtw/husk-unicamp/internal/utils"
+	c "github.com/vilasbtw/husk-unicamp/internal/gui/components"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/widget"
-
-	c "github.com/vilasbtw/husk-unicamp/internal/gui/components"
 
 	_ "embed"
 )
@@ -55,9 +55,24 @@ func (s *DownloadScreen) runInstallerScript() {
 	targetDir := filepath.Join(os.Getenv("USERPROFILE"), "Desktop", "TempInstallers")
 	target := filepath.Join(targetDir, "installer.ps1")
 
-	_ = os.MkdirAll(targetDir, 0o755)
-	_ = os.WriteFile(target, installerScript, 0o644)
+	err := os.MkdirAll(targetDir, 0o755)
+	if err != nil {
+		utils.LogToFile("Erro ao criar pasta TempInstallers: " + err.Error())
+		return
+	}
+
+	err = os.WriteFile(target, installerScript, 0o644)
+	if err != nil {
+		utils.LogToFile("Erro ao salvar installer.ps1: " + err.Error())
+		return
+	}
+
+	utils.LogToFile("Executando installer.ps1 em: " + target)
 
 	cmd := exec.Command("powershell", "-ExecutionPolicy", "Bypass", "-File", target)
-	_ = cmd.Run()
+	output, err := cmd.CombinedOutput()
+	utils.LogToFile("Saída do comando installer.ps1:\n" + string(output))
+	if err != nil {
+		utils.LogToFile("Erro ao executar installer.ps1: " + err.Error())
+	}
 }

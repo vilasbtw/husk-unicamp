@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/vilasbtw/husk-unicamp/internal/state"
+	"github.com/vilasbtw/husk-unicamp/internal/utils"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -77,9 +78,12 @@ func (s *AutocadSelectionScreen) runCopyScript() {
 
 	err := os.WriteFile(scriptPath, autocadCopyScript, 0644)
 	if err != nil {
+		utils.LogToFile("Erro ao salvar autocad_copy.ps1: " + err.Error())
 		dialog.ShowError(err, s.Window)
 		return
 	}
+
+	utils.LogToFile("Executando autocad_copy.ps1 com versão: " + s.Versao)
 
 	cmd := exec.Command("powershell", "-ExecutionPolicy", "Bypass", "-File", scriptPath,
 		"-usuario", state.UsuarioNetuno,
@@ -88,11 +92,12 @@ func (s *AutocadSelectionScreen) runCopyScript() {
 	)
 
 	output, err := cmd.CombinedOutput()
+	utils.LogToFile("Saída do comando autocad_copy.ps1:\n" + string(output))
 	if err != nil {
+		utils.LogToFile("Erro ao executar autocad_copy.ps1: " + err.Error())
 		dialog.ShowError(err, s.Window)
 		return
 	}
 
 	dialog.ShowInformation("Sucesso", "Versão do AutoCAD copiada com sucesso para a área de trabalho.", s.Window)
-	_ = output
 }

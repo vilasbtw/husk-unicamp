@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/vilasbtw/husk-unicamp/internal/state"
+	"github.com/vilasbtw/husk-unicamp/internal/utils"
 	c "github.com/vilasbtw/husk-unicamp/internal/gui/components"
 
 	"fyne.io/fyne/v2"
@@ -71,7 +72,13 @@ func (s *DwgSelectionScreen) runCopyScript() {
 	temp := os.TempDir()
 	scriptPath := filepath.Join(temp, "dwg_copy.ps1")
 
-	_ = os.WriteFile(scriptPath, dwgCopyScript, 0o644)
+	if err := os.WriteFile(scriptPath, dwgCopyScript, 0o644); err != nil {
+		utils.LogToFile("Erro ao salvar dwg_copy.ps1: " + err.Error())
+		dialog.ShowError(err, s.Window)
+		return
+	}
+
+	utils.LogToFile("Executando dwg_copy.ps1 com versão: " + s.Versao)
 
 	cmd := exec.Command("powershell", "-ExecutionPolicy", "Bypass", "-File", scriptPath,
 		"-usuario", state.UsuarioNetuno,
@@ -80,11 +87,12 @@ func (s *DwgSelectionScreen) runCopyScript() {
 	)
 
 	output, err := cmd.CombinedOutput()
+	utils.LogToFile("Saída do comando dwg_copy.ps1:\n" + string(output))
 	if err != nil {
+		utils.LogToFile("Erro ao executar dwg_copy.ps1: " + err.Error())
 		dialog.ShowError(err, s.Window)
 		return
 	}
 
 	dialog.ShowInformation("Sucesso", "Versão do DWG Viewer copiada com sucesso para a área de trabalho.", s.Window)
-	_ = output
 }

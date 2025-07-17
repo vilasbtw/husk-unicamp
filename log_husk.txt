@@ -1,0 +1,4 @@
+[17-07-2025 11:25:29] Executando installer.ps1 em: Desktop/TempInstallers/installer.ps1
+[17-07-2025 11:25:29] Saída do comando installer.ps1:
+
+[17-07-2025 11:25:29] Erro ao executar installer.ps1: exec: "powershell": executable file not found in $PATH

@@ -10,7 +10,8 @@ if (-not $usuario -or -not $senha -or -not $versao) {
 }
 
 $usuarioCompleto = "NETUNO\$usuario"
-$basePath = "\\netuno\informatica\#Suporte\#Softwares\AUTOCAD"
+# alterar conforme sua necessidade.
+$basePath = "\\servidor\caminho\AUTOCAD"
 
 switch ($versao) {
     "2016" {

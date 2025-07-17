@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/vilasbtw/husk-unicamp/internal/state"
+	"github.com/vilasbtw/husk-unicamp/internal/utils"
 	c "github.com/vilasbtw/husk-unicamp/internal/gui/components"
 
 	"fyne.io/fyne/v2"
@@ -71,7 +72,13 @@ func (s *OfficeSelectionScreen) runCopyScript() {
 	temp := os.TempDir()
 	scriptPath := filepath.Join(temp, "office_copy.ps1")
 
-	_ = os.WriteFile(scriptPath, officeCopyScript, 0o644)
+	if err := os.WriteFile(scriptPath, officeCopyScript, 0o644); err != nil {
+		utils.LogToFile("Erro ao salvar office_copy.ps1: " + err.Error())
+		dialog.ShowError(err, s.Window)
+		return
+	}
+
+	utils.LogToFile("Executando office_copy.ps1 com versão: " + s.Versao)
 
 	cmd := exec.Command("powershell", "-ExecutionPolicy", "Bypass", "-File", scriptPath,
 		"-usuario", state.UsuarioNetuno,
@@ -80,11 +87,12 @@ func (s *OfficeSelectionScreen) runCopyScript() {
 	)
 
 	output, err := cmd.CombinedOutput()
+	utils.LogToFile("Saída do comando office_copy.ps1:\n" + string(output))
 	if err != nil {
+		utils.LogToFile("Erro ao executar office_copy.ps1: " + err.Error())
 		dialog.ShowError(err, s.Window)
 		return
 	}
 
 	dialog.ShowInformation("Sucesso", "Versão do Office copiada com sucesso para a área de trabalho.", s.Window)
-	_ = output
 }
