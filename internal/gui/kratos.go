@@ -33,7 +33,7 @@ func (s *KratosScreen) Show() {
 	passwordEntry := widget.NewPasswordEntry()
 	passwordEntry.SetPlaceHolder("Senha")
 
-	btnOK := widget.NewButton("OK", func() {
+	btnOK := widget.NewButton("Instalar", func() {
 		usuario := usernameEntry.Text
 		senha := passwordEntry.Text
 		if usuario == "" || senha == "" {

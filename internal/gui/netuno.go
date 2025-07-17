@@ -30,7 +30,7 @@ func NewNetunoScreen(w fyne.Window) *NetunoScreen {
 func (s *NetunoScreen) Show() {
 	center := c.BuildButtonGroup(
 		widget.NewButton("Microsoft Office", func() {
-			// NewOfficeSelectionScreen(s.Window).Show()
+			NewOfficeSelectionScreen(s.Window).Show()
 		}),
 		widget.NewButton("OCS", func() {
 			s.runCopyScript(ocsCopyScript, "ocs.ps1")

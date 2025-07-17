@@ -20,6 +20,8 @@ func (s *HomeScreen) Show() {
         widget.NewButton("Instalação", func() {
             NewInstallationScreen(s.Window).Show()
         }),
+        // TODO:
+        // Implementar configuração do NTP, configuração do domínio e baixar driver da impressora.   
         widget.NewButton("Pós-instalação", func() {
             // NewPostInstallationScreen(s.Window).Show()
         }),
