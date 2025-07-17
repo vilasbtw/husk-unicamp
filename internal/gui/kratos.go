@@ -81,5 +81,7 @@ func (s *KratosScreen) runCopyScript(usuario, senha string) {
 		dialog.ShowError(err, s.Window)
 		return
 	}
+
+	dialog.ShowInformation("Sucesso", "Instalador copiado para a área de trabalho.", s.Window)
 	_ = output
 }

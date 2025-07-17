@@ -36,10 +36,10 @@ func (s *NetunoScreen) Show() {
 			s.runCopyScript(ocsCopyScript, "ocs.ps1")
 		}),
 		widget.NewButton("AutoCAD", func() {
-			// NewAutocadSelectionScreen(s.Window).Show()
+			NewAutocadSelectionScreen(s.Window).Show()
 		}),
 		widget.NewButton("DWG TrueView", func() {
-			// NewDwgSelectionScreen(s.Window).Show()
+			NewDwgSelectionScreen(s.Window).Show()
 		}),
 	)
 
